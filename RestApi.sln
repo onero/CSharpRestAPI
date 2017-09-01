@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestAppDAL", "CustomerAppDA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestAppBLLTests", "CustomerAppBLLTests\RestAppBLLTests.csproj", "{AD981BD5-941B-429C-A0CD-F8A01D3756D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerRestAPI", "CustomerRestAPI\CustomerRestAPI.csproj", "{D6ED3586-0005-4F06-AE53-BBD7B8D88918}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AD981BD5-941B-429C-A0CD-F8A01D3756D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD981BD5-941B-429C-A0CD-F8A01D3756D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD981BD5-941B-429C-A0CD-F8A01D3756D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6ED3586-0005-4F06-AE53-BBD7B8D88918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6ED3586-0005-4F06-AE53-BBD7B8D88918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6ED3586-0005-4F06-AE53-BBD7B8D88918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6ED3586-0005-4F06-AE53-BBD7B8D88918}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
