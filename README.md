@@ -1,3 +1,3 @@
-# CustomerApp
-## ![latest build](https://travis-ci.org/onero/CustomerApp.svg?branch=master "Latest build")
-Project created for working with distributed structure
+# RestApi
+## [![Build Status](https://travis-ci.org/onero/CsharpRestApi.svg?branch=master)](https://travis-ci.org/onero/CsharpRestApi)
+RestApi for multiple projects
