@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RestAppBLL;
+using RestAppBLL.BusinessObjects;
 
 namespace CustomerRestAPI
 {
@@ -32,6 +34,15 @@ namespace CustomerRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                var bllFacade = new BLLFacade();
+                bllFacade.CustomerService.Create(
+                    new CustomerBO()
+                    {
+                        Id = 1,
+                        FirstName = "Adamino",
+                        LastName = "Hansen",
+                        Address = "Home"
+                    });
             }
 
             app.UseMvc();
