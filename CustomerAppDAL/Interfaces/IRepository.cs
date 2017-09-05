@@ -7,7 +7,7 @@ namespace RestAppDAL.Interfaces
     /// </summary>
     public interface IRepository<TEntity>
     {
-        TEntity Create(TEntity customerToCreate);
+        TEntity Create(TEntity entity);
 
         IEnumerable<TEntity> GetAll();
 

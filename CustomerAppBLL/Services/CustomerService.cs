@@ -56,7 +56,8 @@ namespace RestAppBLL.Services
         {
             using (var uow = _dalFacade.UnitOfWork)
             {
-                return _converter.Convert(uow.CustomerRepository.GetById(id));
+                var customer = uow.CustomerRepository.GetById(id);
+                return customer == null ? null : _converter.Convert(customer);
             }
         }
 
@@ -75,7 +76,7 @@ namespace RestAppBLL.Services
             using (var uow = _dalFacade.UnitOfWork)
             {
                 var customerFromDb = uow.CustomerRepository.GetById(updatedCustomer.Id);
-                if (customerFromDb == null) throw new InvalidOperationException("Customer doesn't exist in DB");
+                if (customerFromDb == null) return null;
 
                 customerFromDb.FirstName = updatedCustomer.FirstName;
                 customerFromDb.LastName = updatedCustomer.LastName;

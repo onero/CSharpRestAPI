@@ -38,7 +38,6 @@ namespace CustomerRestAPI
                 bllFacade.CustomerService.Create(
                     new CustomerBO()
                     {
-                        Id = 1,
                         FirstName = "Adamino",
                         LastName = "Hansen",
                         Address = "Home"
