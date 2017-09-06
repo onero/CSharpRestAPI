@@ -28,41 +28,41 @@ namespace CustomerRestAPI.Controllers
         {
             var customer = _facade.CustomerService.GetById(id);
 
-            if (customer == null) return NotFound();
+            if (customer == null) return NotFound($"ID: {id} - does not exist");
 
-            return Ok(_facade.CustomerService.GetById(id));
+            return new ObjectResult(_facade.CustomerService.GetById(id));
         }
-        
+
         // POST: api/Customers
         [HttpPost]
-        public IActionResult Post([FromBody]CustomerBO customer)
+        public IActionResult Post([FromBody] CustomerBO customer)
         {
-            if (customer == null) return NotFound();
+            if (customer == null) return BadRequest("JSON Object is not valid");
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_facade.CustomerService.Create(customer));
+            return Created("", _facade.CustomerService.Create(customer));
         }
-        
+
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]CustomerBO customer)
+        public IActionResult Put(int id, [FromBody] CustomerBO customer)
         {
-            if (id != customer.Id) return BadRequest("Id does not match customer ID");
+            if (id != customer.Id) return BadRequest($"ID: {id} - does not match customer ID");
 
             var customerFromDB = _facade.CustomerService.GetById(id);
             if (customerFromDB == null) return NotFound();
 
             return Ok(_facade.CustomerService.Update(customer));
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var customer = _facade.CustomerService.GetById(id);
 
-            if (customer == null) return NotFound();
+            if (customer == null) return NotFound($"ID: {id} - does not exist");
 
             return Ok(_facade.CustomerService.Delete(id));
         }

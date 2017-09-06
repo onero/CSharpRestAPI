@@ -3,13 +3,13 @@ using System.Linq;
 using RestAppBLL.BusinessObjects;
 using RestAppBLL.Converters;
 using RestAppDAL;
-using RestAppDAL.Entities;
 
 namespace RestAppBLL.Services
 {
     internal class OrderService : IService<OrderBO>
     {
         private readonly DALFacade _facade = new DALFacade();
+
         public OrderBO Create(OrderBO entityToCreate)
         {
             using (var unitOfWork = _facade.UnitOfWork)
@@ -20,9 +20,19 @@ namespace RestAppBLL.Services
             }
         }
 
-        public IList<OrderBO> CreateAll(IList<OrderBO> customers)
+        public IList<OrderBO> CreateAll(IList<OrderBO> orders)
         {
-            throw new System.NotImplementedException();
+            using (var unitOfWork = _facade.UnitOfWork)
+            {
+                var createdOrders = new List<OrderBO>();
+                foreach (var order in orders)
+                {
+                    var createdOrder = unitOfWork.OrderRepository.Create(OrderConverter.Convert(order));
+                    createdOrders.Add(OrderConverter.Convert(createdOrder));
+                }
+                unitOfWork.Complete();
+                return orders;
+            }
         }
 
         public IEnumerable<OrderBO> GetAll()
@@ -46,10 +56,13 @@ namespace RestAppBLL.Services
         {
             using (var unitOfWork = _facade.UnitOfWork)
             {
-                var order = unitOfWork.OrderRepository.GetById(id);
+                var order = GetById(id);
+
                 if (order == null) return false;
+
                 unitOfWork.OrderRepository.Delete(id);
                 unitOfWork.Complete();
+
                 return true;
             }
         }
@@ -58,12 +71,14 @@ namespace RestAppBLL.Services
         {
             using (var unitOfWork = _facade.UnitOfWork)
             {
-                var order = unitOfWork.OrderRepository.GetById(entityToUpdate.Id);
+                var order = GetById(entityToUpdate.Id);
                 if (order == null) return null;
+
                 order.DeliveryDate = entityToUpdate.DeliveryDate;
                 order.OrderDate = entityToUpdate.OrderDate;
                 unitOfWork.Complete();
-                return OrderConverter.Convert(order);
+
+                return order;
             }
         }
     }
