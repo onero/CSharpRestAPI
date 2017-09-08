@@ -1,4 +1,6 @@
-﻿namespace RestAppDAL.Entities
+﻿using System.Collections.Generic;
+
+namespace RestAppDAL.Entities
 {
     public class Customer
     {
@@ -6,5 +8,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
+
+        public IList<Order> Orders { get; set; }
     }
 }

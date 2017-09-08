@@ -5,23 +5,29 @@ namespace RestAppBLL.Converters
 {
     internal static class OrderConverter
     {
-        public static Order Convert(OrderBO entityToCreate)
+        public static Order Convert(OrderBO order)
         {
+            if (order == null) return null;
+
             return new Order()
             {
-                Id = entityToCreate.Id,
-                OrderDate = entityToCreate.OrderDate,
-                DeliveryDate = entityToCreate.DeliveryDate
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                DeliveryDate = order.DeliveryDate,
+                Customer = new CustomerConverter().Convert(order.Customer)
             };
         }
 
-        public static OrderBO Convert(Order entityToCreate)
+        public static OrderBO Convert(Order order)
         {
+            if (order == null) return null;
+
             return new OrderBO()
             {
-                Id = entityToCreate.Id,
-                OrderDate = entityToCreate.OrderDate,
-                DeliveryDate = entityToCreate.DeliveryDate
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                DeliveryDate = order.DeliveryDate,
+                Customer = new CustomerConverter().Convert(order.Customer)
             };
         }
     }

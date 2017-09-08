@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using RestAppDAL.Context;
 using RestAppDAL.Entities;
 using RestAppDAL.Interfaces;
@@ -17,14 +18,19 @@ namespace RestAppDAL.Repositories
 
         public Order Create(Order entity)
         {
+            if (entity.Customer != null)
+            {
+                // Don't create
+                _context.Entry(entity.Customer).State = EntityState.Unchanged;
+            }
             var createdOrder = _context.Orders.Add(entity);
             return createdOrder.Entity;
         }
 
         public IEnumerable<Order> GetAll()
         {
-            var orders = _context.Orders.ToList();
-            return orders;
+            // Get all orders with customers
+            return _context.Orders.Include(o => o.Customer).ToList();
         }
 
         public Order GetById(int id)

@@ -11,5 +11,7 @@ namespace RestAppBLL.BusinessObjects
         public DateTime OrderDate { get; set; }
         [Required]
         public DateTime DeliveryDate { get; set; }
+
+        public CustomerBO Customer { get; set; }
     }
 }
