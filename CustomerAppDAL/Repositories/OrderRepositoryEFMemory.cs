@@ -18,19 +18,13 @@ namespace RestAppDAL.Repositories
 
         public Order Create(Order entity)
         {
-            if (entity.Customer != null)
-            {
-                // Don't create
-                _context.Entry(entity.Customer).State = EntityState.Unchanged;
-            }
-            var createdOrder = _context.Orders.Add(entity);
-            return createdOrder.Entity;
+            _context.Orders.Add(entity);
+            return entity;
         }
 
         public IEnumerable<Order> GetAll()
         {
-            // Get all orders with customers
-            return _context.Orders.Include(o => o.Customer).ToList();
+            return _context.Orders.ToList();
         }
 
         public Order GetById(int id)

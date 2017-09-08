@@ -14,7 +14,7 @@ namespace RestAppBLL.Converters
                 Id = order.Id,
                 OrderDate = order.OrderDate,
                 DeliveryDate = order.DeliveryDate,
-                Customer = new CustomerConverter().Convert(order.Customer)
+                CustomerId = order.CustomerId
             };
         }
 
@@ -27,7 +27,8 @@ namespace RestAppBLL.Converters
                 Id = order.Id,
                 OrderDate = order.OrderDate,
                 DeliveryDate = order.DeliveryDate,
-                Customer = new CustomerConverter().Convert(order.Customer)
+                Customer = new CustomerConverter().Convert(order.Customer),
+                CustomerId = order.CustomerId
             };
         }
     }

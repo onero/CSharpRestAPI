@@ -42,7 +42,7 @@ namespace CustomerRestAPI
                 {
                     OrderDate = DateTime.Now,
                     DeliveryDate = DateTime.Now.AddMonths(1),
-                    Customer = customer
+                    CustomerId = customer.Id
                 });
             }
 

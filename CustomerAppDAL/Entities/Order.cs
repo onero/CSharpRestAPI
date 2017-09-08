@@ -10,6 +10,7 @@ namespace RestAppDAL.Entities
 
         public DateTime DeliveryDate { get; set; }
 
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
     }
 }

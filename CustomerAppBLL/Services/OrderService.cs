@@ -35,6 +35,11 @@ namespace RestAppBLL.Services
             }
         }
 
+        /// <summary>
+        /// Get all prders
+        /// </summary>
+        /// <returns>List of orders</returns>
+        /// <remarks>Customer attribute will be null</remarks>
         public IEnumerable<OrderBO> GetAll()
         {
             using (var unitOfWork = _facade.UnitOfWork)
@@ -43,15 +48,29 @@ namespace RestAppBLL.Services
             }
         }
 
+        /// <summary>
+        /// Get order by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>OrderBO</returns>
+        /// <remarks>OrderBO customer attribute will be returned</remarks>
         public OrderBO GetById(int id)
         {
             using (var unitOfWork = _facade.UnitOfWork)
             {
                 var orderFromDB = unitOfWork.OrderRepository.GetById(id);
-                return orderFromDB == null ? null : OrderConverter.Convert(orderFromDB);
+                if (orderFromDB == null) return null;
+                // Get customer associated with the order
+                orderFromDB.Customer = unitOfWork.CustomerRepository.GetById(orderFromDB.CustomerId);
+                return OrderConverter.Convert(orderFromDB);
             }
         }
 
+        /// <summary>
+        /// Delete order by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true, if deleted</returns>
         public bool Delete(int id)
         {
             using (var unitOfWork = _facade.UnitOfWork)
@@ -67,18 +86,24 @@ namespace RestAppBLL.Services
             }
         }
 
-        public OrderBO Update(OrderBO entityToUpdate)
+        /// <summary>
+        /// Update order with provided order
+        /// </summary>
+        /// <param name="orderBO"></param>
+        /// <returns></returns>
+        public OrderBO Update(OrderBO orderBO)
         {
             using (var unitOfWork = _facade.UnitOfWork)
             {
-                var order = GetById(entityToUpdate.Id);
-                if (order == null) return null;
+                var orderFromDB = unitOfWork.OrderRepository.GetById(orderBO.Id);
+                if (orderFromDB == null) return null;
 
-                order.DeliveryDate = entityToUpdate.DeliveryDate;
-                order.OrderDate = entityToUpdate.OrderDate;
+                orderFromDB.DeliveryDate = orderBO.DeliveryDate;
+                orderFromDB.OrderDate = orderBO.OrderDate;
+                orderFromDB.CustomerId = orderFromDB.CustomerId;
                 unitOfWork.Complete();
 
-                return order;
+                return OrderConverter.Convert(orderFromDB);
             }
         }
     }
