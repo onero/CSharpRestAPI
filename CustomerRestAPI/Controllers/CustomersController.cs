@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RestAppBLL;
 using RestAppBLL.BusinessObjects;
@@ -30,7 +26,7 @@ namespace CustomerRestAPI.Controllers
 
             if (customer == null) return NotFound($"ID: {id} - does not exist");
 
-            return new ObjectResult(_facade.CustomerService.GetById(id));
+            return new ObjectResult(customer);
         }
 
         // POST: api/Customers

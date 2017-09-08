@@ -65,6 +65,8 @@ namespace RestAppBLL.Services
         {
             using (var uow = _dalFacade.UnitOfWork)
             {
+                var customerFromDB = uow.CustomerRepository.GetById(id);
+                if (customerFromDB == null) return false;
                 var customerDeleted = uow.CustomerRepository.Delete(id);
                 uow.Complete();
                 return customerDeleted;

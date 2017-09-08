@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RestAppBLL;
 using RestAppBLL.BusinessObjects;
 
@@ -36,12 +31,18 @@ namespace CustomerRestAPI
                 app.UseDeveloperExceptionPage();
                 var bllFacade = new BLLFacade();
                 bllFacade.CustomerService.Create(
-                    new CustomerBO()
+                    new CustomerBO
                     {
                         FirstName = "Adamino",
                         LastName = "Hansen",
                         Address = "Home"
                     });
+
+                bllFacade.OrderService.Create(new OrderBO()
+                {
+                    OrderDate = DateTime.Now,
+                    DeliveryDate = DateTime.Now.AddMonths(1)
+                });
             }
 
             app.UseMvc();
