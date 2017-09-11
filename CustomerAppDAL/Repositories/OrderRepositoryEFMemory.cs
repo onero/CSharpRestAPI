@@ -24,6 +24,7 @@ namespace RestAppDAL.Repositories
 
         public IEnumerable<Order> GetAll()
         {
+            // To get all order with customers: _context.Orders.Select(o => o.Customer).ToList();
             return _context.Orders.ToList();
         }
 
