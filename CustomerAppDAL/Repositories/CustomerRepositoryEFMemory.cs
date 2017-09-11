@@ -17,8 +17,8 @@ namespace RestAppDAL.Repositories
 
         public Customer Create(Customer customerToCreate)
         {
-            _context.Customers.Add(customerToCreate);
-            return customerToCreate;
+            var createdCustomer = _context.Customers.Add(customerToCreate);
+            return createdCustomer.Entity;
         }
 
         public IEnumerable<Customer> GetAll()
@@ -35,6 +35,7 @@ namespace RestAppDAL.Repositories
         public bool Delete(int id)
         {
             var customer = GetById(id);
+            if (customer == null) return false;
             _context.Customers.Remove(customer);
             return true;
         }

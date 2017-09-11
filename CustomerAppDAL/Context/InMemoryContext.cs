@@ -15,5 +15,6 @@ namespace RestAppDAL.Context
         }
 
         public DbSet<Customer> Customers { set; get; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

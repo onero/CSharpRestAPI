@@ -3,7 +3,7 @@ using RestAppDAL.Entities;
 
 namespace RestAppBLL.Converters
 {
-    public class CustomerConverter
+    internal class CustomerConverter
     {
         /// <summary>
         /// Convert CustomerBO to Customer
@@ -12,6 +12,8 @@ namespace RestAppBLL.Converters
         /// <returns>Customer</returns>
         internal Customer Convert(CustomerBO customer)
         {
+            if (customer == null) return null;
+
             return new Customer()
             {
                 Id = customer.Id,
@@ -28,6 +30,8 @@ namespace RestAppBLL.Converters
         /// <returns>CustomerBO</returns>
         internal CustomerBO Convert(Customer customer)
         {
+            if (customer == null) return null;
+
             return new CustomerBO()
             {
                 Id = customer.Id,

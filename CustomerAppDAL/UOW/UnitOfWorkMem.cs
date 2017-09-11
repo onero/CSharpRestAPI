@@ -9,14 +9,15 @@ namespace RestAppDAL.UOW
     {
         private readonly InMemoryContext _context;
 
+        public IRepository<Customer> CustomerRepository { get; }
+        public IRepository<Order> OrderRepository { get; }
 
         public UnitOfWorkMem()
         {
             _context = new InMemoryContext();
             CustomerRepository = new CustomerRepositoryEFMemory(_context);
+            OrderRepository = new OrderRepositoryEFMemory(_context);
         }
-
-        public IRepository<Customer> CustomerRepository { get; }
 
         public int Complete()
         {

@@ -8,20 +8,20 @@ namespace RestAppBLLTests
 {
     public class CustomerServiceTests
     {
-        private static readonly CustomerBO MockCustomer = new CustomerBO
-        {
-            FirstName = "Test",
-            LastName = "Testesen",
-            Address = "Secret"
-        };
+        //private static readonly CustomerBO MockCustomer = new CustomerBO
+        //{
+        //    FirstName = "Test",
+        //    LastName = "Testesen",
+        //    Address = "Secret"
+        //};
 
-        private readonly IService<CustomerBO> _customerService;
+        //private readonly IService<CustomerBO> _customerService;
 
-        public CustomerServiceTests()
-        {
-            IDALFacade dalFacade = new MockDALFacade();
-            _customerService = new CustomerService(dalFacade);
-        }
+        //public CustomerServiceTests()
+        //{
+        //    IDALFacade dalFacade = new MockDALFacade();
+        //    _customerService = new CustomerService(dalFacade);
+        //}
 
         //[Fact]
         //public void TestCreateAllSuccess()
