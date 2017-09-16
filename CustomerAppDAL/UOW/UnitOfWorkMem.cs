@@ -11,10 +11,12 @@ namespace RestAppDAL.UOW
 
         public IRepository<Customer> CustomerRepository { get; }
         public IRepository<Order> OrderRepository { get; }
+        public IRepository<Address> AddressRepository { get; }
 
         public UnitOfWorkMem()
         {
             _context = new InMemoryContext();
+            AddressRepository = new AddressRepositoryEFMemory(_context);
             CustomerRepository = new CustomerRepositoryEFMemory(_context);
             OrderRepository = new OrderRepositoryEFMemory(_context);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using RestAppDAL.Context;
 using RestAppDAL.Entities;
 using RestAppDAL.Interfaces;
@@ -21,15 +22,23 @@ namespace RestAppDAL.Repositories
             return createdCustomer.Entity;
         }
 
+        public IEnumerable<Customer> GetAllById(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Customer> GetAll()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers
+                .Include(c => c.Addresses).ToList();
             return customers;
         }
 
         public Customer GetById(int id)
         {
-            return _context.Customers.FirstOrDefault(c => c.Id == id);
+            return _context.Customers
+                .Include(c => c.Addresses)
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public bool Delete(int id)

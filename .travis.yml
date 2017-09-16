@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.0.0
+dotnet: 1.1.0
 dist: trusty
 install:
 - dotnet restore
@@ -12,5 +12,13 @@ branches:
   - master
   - development
 notifications:
-  slack: cs2016a:MrE8tgSmsfcVCMVTa1JgT78G
   email: false
+  slack:
+    rooms:
+      - cs2016a:MrE8tgSmsfcVCMVTa1JgT78G
+    on_success: change
+    on_failure: always
+    template:
+      - "%{author} %{result} build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) in %{repository}@%{branch}"
+      - "Travis message: %{message}"
+      - "Commit message: %{commit_message}"

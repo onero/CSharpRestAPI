@@ -24,9 +24,9 @@ namespace CustomerRestAPI.Controllers
         {
             var customer = _facade.CustomerService.GetById(id);
 
-            if (customer == null) return NotFound($"ID: {id} - does not exist");
-
-            return new ObjectResult(customer);
+            return customer == null ? 
+                NotFound($"ID: {id} - does not exist") : 
+                new ObjectResult(customer);
         }
 
         // POST: api/Customers

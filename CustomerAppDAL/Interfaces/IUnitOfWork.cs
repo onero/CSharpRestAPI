@@ -7,6 +7,7 @@ namespace RestAppDAL.Interfaces
     {
         IRepository<Customer> CustomerRepository { get; }
         IRepository<Order> OrderRepository { get; }
+        IRepository<Address> AddressRepository { get; }
 
         int Complete();
     }
