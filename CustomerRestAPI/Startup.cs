@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,12 +31,29 @@ namespace CustomerRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 var bllFacade = new BLLFacade();
+
+                var address = bllFacade.AddressService.Create(
+                    new AddressBO()
+                    {
+                        City = "Esbjerg",
+                        Street = "Home",
+                        Number = "1"
+                    });
+
+                var address2 = bllFacade.AddressService.Create(
+                    new AddressBO()
+                    {
+                        City = "Køge",
+                        Street = "OldHome",
+                        Number = "1"
+                    });
+
                 var customer = bllFacade.CustomerService.Create(
                     new CustomerBO
                     {
                         FirstName = "Adamino",
                         LastName = "Hansen",
-                        Address = "Home"
+                        AddressIds = new List<int>() { address.Id, address2.Id }
                     });
 
                 bllFacade.OrderService.Create(new OrderBO()

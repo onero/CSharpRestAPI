@@ -9,6 +9,8 @@ namespace RestAppDAL.Interfaces
     {
         TEntity Create(TEntity entity);
 
+        IEnumerable<TEntity> GetAllById(List<int> ids);
+
         IEnumerable<TEntity> GetAll();
 
         TEntity GetById(int id);

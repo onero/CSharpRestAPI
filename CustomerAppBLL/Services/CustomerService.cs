@@ -10,11 +10,13 @@ namespace RestAppBLL.Services
     public class CustomerService : IService<CustomerBO>
     {
         private readonly CustomerConverter _converter;
+        private readonly AddressConverter _addressConverter;
         private readonly IDALFacade _dalFacade;
 
         public CustomerService(IDALFacade facade)
         {
             _dalFacade = facade;
+            _addressConverter = new AddressConverter();
             _converter = new CustomerConverter();
         }
 
@@ -57,7 +59,17 @@ namespace RestAppBLL.Services
             using (var uow = _dalFacade.UnitOfWork)
             {
                 var customer = uow.CustomerRepository.GetById(id);
-                return customer == null ? null : _converter.Convert(customer);
+                if (customer == null) return null;
+                var convertedCustomer = _converter.Convert(customer);
+
+                /*convertedCustomer.Addresses = convertedCustomer.AddressIds?
+                    .Select(addressId => _addressConverter.Convert(uow.AddressRepository.GetById(addressId)))
+                    .ToList();*/
+
+                convertedCustomer.Addresses = uow.AddressRepository.GetAllById(convertedCustomer.AddressIds)
+                    .Select(a => _addressConverter.Convert(a))
+                    .ToList();
+                return convertedCustomer;
             }
         }
 
@@ -80,10 +92,12 @@ namespace RestAppBLL.Services
                 var customerFromDb = uow.CustomerRepository.GetById(updatedCustomer.Id);
                 if (customerFromDb == null) return null;
 
-                customerFromDb.FirstName = updatedCustomer.FirstName;
-                customerFromDb.LastName = updatedCustomer.LastName;
-                customerFromDb.Address = updatedCustomer.Address;
+                var customerUpdated = _converter.Convert(updatedCustomer);
+                customerFromDb.FirstName = customerUpdated.FirstName;
+                customerFromDb.LastName = customerUpdated.LastName;
+                customerFromDb.Addresses = customerUpdated.Addresses;
                 uow.Complete();
+
                 return _converter.Convert(customerFromDb);
             }
         }

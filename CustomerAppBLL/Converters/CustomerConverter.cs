@@ -1,4 +1,5 @@
-﻿using RestAppBLL.BusinessObjects;
+﻿using System.Linq;
+using RestAppBLL.BusinessObjects;
 using RestAppDAL.Entities;
 
 namespace RestAppBLL.Converters
@@ -6,7 +7,7 @@ namespace RestAppBLL.Converters
     internal class CustomerConverter
     {
         /// <summary>
-        /// Convert CustomerBO to Customer
+        /// Convert CustomerBO to Customer for DAL
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>Customer</returns>
@@ -19,12 +20,16 @@ namespace RestAppBLL.Converters
                 Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
-                Address = customer.Address
+                Addresses = customer.AddressIds?.Select(aId => new CustomerAddress()
+                {
+                    AddressId = aId,
+                    CustomerId = customer.Id
+                }).ToList()
             };
         }
 
         /// <summary>
-        /// Convert Customer to CustomerBO
+        /// Convert Customer to CustomerBO for BLL
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>CustomerBO</returns>
@@ -37,7 +42,7 @@ namespace RestAppBLL.Converters
                 Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
-                Address = customer.Address
+                AddressIds = customer.Addresses?.Select(a => a.AddressId).ToList()
             };
         }
     }

@@ -22,6 +22,11 @@ namespace RestAppDAL.Repositories
             return entity;
         }
 
+        public IEnumerable<Order> GetAllById(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Order> GetAll()
         {
             // To get all order with customers: _context.Orders.Select(o => o.Customer).ToList();
