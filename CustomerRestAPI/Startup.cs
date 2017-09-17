@@ -30,38 +30,38 @@ namespace CustomerRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                var bllFacade = new BLLFacade();
+                //var bllFacade = new BLLFacade();
 
-                var address = bllFacade.AddressService.Create(
-                    new AddressBO()
-                    {
-                        City = "Esbjerg",
-                        Street = "Home",
-                        Number = "1"
-                    });
+                //var address = bllFacade.AddressService.Create(
+                //    new AddressBO()
+                //    {
+                //        City = "Esbjerg",
+                //        Street = "Home",
+                //        Number = "1"
+                //    });
 
-                var address2 = bllFacade.AddressService.Create(
-                    new AddressBO()
-                    {
-                        City = "Køge",
-                        Street = "OldHome",
-                        Number = "1"
-                    });
+                //var address2 = bllFacade.AddressService.Create(
+                //    new AddressBO()
+                //    {
+                //        City = "Køge",
+                //        Street = "OldHome",
+                //        Number = "1"
+                //    });
 
-                var customer = bllFacade.CustomerService.Create(
-                    new CustomerBO
-                    {
-                        FirstName = "Adamino",
-                        LastName = "Hansen",
-                        AddressIds = new List<int>() { address.Id, address2.Id }
-                    });
+                //var customer = bllFacade.CustomerService.Create(
+                //    new CustomerBO
+                //    {
+                //        FirstName = "Adamino",
+                //        LastName = "Hansen",
+                //        AddressIds = new List<int>() { address.Id, address2.Id }
+                //    });
 
-                bllFacade.OrderService.Create(new OrderBO()
-                {
-                    OrderDate = DateTime.Now,
-                    DeliveryDate = DateTime.Now.AddMonths(1),
-                    CustomerId = customer.Id
-                });
+                //bllFacade.OrderService.Create(new OrderBO()
+                //{
+                //    OrderDate = DateTime.Now,
+                //    DeliveryDate = DateTime.Now.AddMonths(1),
+                //    CustomerId = customer.Id
+                //});
             }
 
             app.UseMvc();
