@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestAppDAL.Context;
+﻿using RestAppDAL.Context;
 using RestAppDAL.Entities;
 using RestAppDAL.Interfaces;
 using RestAppDAL.Repositories;
@@ -10,10 +9,6 @@ namespace RestAppDAL.UOW
     {
         private readonly SQLContext _context;
 
-        public IRepository<Customer> CustomerRepository { get; }
-        public IRepository<Order> OrderRepository { get; }
-        public IRepository<Address> AddressRepository { get; }
-
         public UnitOfWork()
         {
             _context = new SQLContext();
@@ -22,6 +17,10 @@ namespace RestAppDAL.UOW
             CustomerRepository = new CustomerRepositoryEFMemory(_context);
             OrderRepository = new OrderRepositoryEFMemory(_context);
         }
+
+        public IRepository<Customer> CustomerRepository { get; }
+        public IRepository<Order> OrderRepository { get; }
+        public IRepository<Address> AddressRepository { get; }
 
         public int Complete()
         {
