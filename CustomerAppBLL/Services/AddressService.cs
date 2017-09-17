@@ -8,11 +8,12 @@ namespace RestAppBLL.Services
 {
     public class AddressService : IService<AddressBO>
     {
-        private readonly DALFacade _facade = new DALFacade();
+        private readonly DALFacade _facade;
         private readonly AddressConverter _converter;
 
-        public AddressService()
+        public AddressService(DALFacade facade)
         {
+            _facade = facade;
             _converter = new AddressConverter();
         }
 

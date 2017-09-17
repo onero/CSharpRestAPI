@@ -95,9 +95,24 @@ namespace RestAppBLL.Services
                 var customerUpdated = _converter.Convert(updatedCustomer);
                 customerFromDb.FirstName = customerUpdated.FirstName;
                 customerFromDb.LastName = customerUpdated.LastName;
-                customerFromDb.Addresses = customerUpdated.Addresses;
-                uow.Complete();
 
+                // Remove all addresses from old customer, that doesn't exist in updated
+                customerFromDb.Addresses.RemoveAll(
+                    ca => !customerUpdated.Addresses.Exists(
+                    a => a.AddressId == ca.AddressId &&
+                    a.CustomerId == ca.CustomerId));
+
+                // Remove all "old" addresses, so we only add new one to DB!
+                customerUpdated.Addresses.RemoveAll(
+                    ca => customerFromDb.Addresses.Exists(
+                        a => a.AddressId == ca.AddressId &&
+                        a.CustomerId == ca.CustomerId));
+
+                // Add all new addresses
+                customerFromDb.Addresses.AddRange(
+                    customerUpdated.Addresses);
+
+                uow.Complete();
                 return _converter.Convert(customerFromDb);
             }
         }

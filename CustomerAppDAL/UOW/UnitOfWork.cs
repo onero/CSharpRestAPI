@@ -5,21 +5,22 @@ using RestAppDAL.Repositories;
 
 namespace RestAppDAL.UOW
 {
-    internal class UnitOfWorkMem : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
-        private readonly InMemoryContext _context;
+        private readonly SQLContext _context;
 
-        public IRepository<Customer> CustomerRepository { get; }
-        public IRepository<Order> OrderRepository { get; }
-        public IRepository<Address> AddressRepository { get; }
-
-        public UnitOfWorkMem()
+        public UnitOfWork()
         {
-            _context = new InMemoryContext();
+            _context = new SQLContext();
+            _context.Database.EnsureCreated();
             AddressRepository = new AddressRepositoryEFMemory(_context);
             CustomerRepository = new CustomerRepositoryEFMemory(_context);
             OrderRepository = new OrderRepositoryEFMemory(_context);
         }
+
+        public IRepository<Customer> CustomerRepository { get; }
+        public IRepository<Order> OrderRepository { get; }
+        public IRepository<Address> AddressRepository { get; }
 
         public int Complete()
         {

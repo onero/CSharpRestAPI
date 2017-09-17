@@ -5,6 +5,6 @@ namespace RestAppDAL
 {
     public class DALFacade : IDALFacade
     {
-        public IUnitOfWork UnitOfWork => new UnitOfWorkMem();
+        public IUnitOfWork UnitOfWork => new UnitOfWork();
     }
 }

@@ -8,9 +8,9 @@ namespace RestAppDAL.Repositories
 {
     public class AddressRepositoryEFMemory : IRepository<Address>
     {
-        private readonly InMemoryContext _context;
+        private readonly SQLContext _context;
 
-        public AddressRepositoryEFMemory(InMemoryContext context)
+        public AddressRepositoryEFMemory(SQLContext context)
         {
             _context = context;
         }

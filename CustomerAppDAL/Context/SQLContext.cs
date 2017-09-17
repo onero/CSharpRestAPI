@@ -5,15 +5,23 @@ using RestAppDAL.Entities;
 
 namespace RestAppDAL.Context
 {
-    public class InMemoryContext : DbContext, ICustomerContext
+    public sealed class SQLContext : DbContext, ICustomerContext
     {
-        //In memory setup
-        private static readonly DbContextOptions<InMemoryContext> Options =
-            new DbContextOptionsBuilder<InMemoryContext>().UseInMemoryDatabase("TheDB").Options;
+        private static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBConnection.txt");
+        private static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
 
-        //Options that we want in memory
-        public InMemoryContext() : base(Options)
+        public SQLContext()
         {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+            base.OnConfiguring(optionsBuilder);
         }
 
         public DbSet<Customer> Customers { get; set; }

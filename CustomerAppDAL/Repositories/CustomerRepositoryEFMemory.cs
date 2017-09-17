@@ -9,9 +9,9 @@ namespace RestAppDAL.Repositories
 {
     internal class CustomerRepositoryEFMemory : IRepository<Customer>
     {
-        private readonly InMemoryContext _context;
+        private readonly SQLContext _context;
 
-        public CustomerRepositoryEFMemory(InMemoryContext context)
+        public CustomerRepositoryEFMemory(SQLContext context)
         {
             _context = context;
         }
