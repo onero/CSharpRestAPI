@@ -8,7 +8,7 @@ namespace RestAppBLL
     {
         public IService<CustomerBO> CustomerService => new CustomerService(new DALFacade());
 
-        public IService<OrderBO> OrderService => new OrderService();
-        public IService<AddressBO> AddressService => new AddressService();
+        public IService<OrderBO> OrderService => new OrderService(new DALFacade());
+        public IService<AddressBO> AddressService => new AddressService(new DALFacade());
     }
 }

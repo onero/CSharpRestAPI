@@ -8,7 +8,12 @@ namespace RestAppBLL.Services
 {
     internal class OrderService : IService<OrderBO>
     {
-        private readonly DALFacade _facade = new DALFacade();
+        private readonly DALFacade _facade;
+
+        public OrderService(DALFacade facade)
+        {
+            _facade = facade;
+        }
 
         public OrderBO Create(OrderBO entityToCreate)
         {
