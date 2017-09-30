@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RestAppBLL;
 using RestAppBLL.BusinessObjects;
 
 namespace CustomerRestAPI.Controllers
 {
+    [EnableCors("LocalPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class CustomersController : Controller
