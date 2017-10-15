@@ -6,7 +6,6 @@ using RestAppBLL.BusinessObjects;
 
 namespace CustomerRestAPI.Controllers
 {
-    [EnableCors("LocalPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class CustomersController : Controller

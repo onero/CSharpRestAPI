@@ -21,13 +21,8 @@ namespace CustomerRestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
-            services.AddCors(o => o.AddPolicy("LocalPolicy", builder =>
-            {
-                builder.WithOrigins("http://localhost:4200")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +64,12 @@ namespace CustomerRestAPI
                 //    CustomerId = customer.Id
                 //});
             }
+            
+            app.UseCors(builder => builder
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseMvc();
         }
